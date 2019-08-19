@@ -1,5 +1,9 @@
 var express = require("express");
 
+
+var server = http.createServer(handleRequest);
+
+
 var app = express();
 var PORT = 3000;
 

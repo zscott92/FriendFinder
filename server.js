@@ -1,17 +1,28 @@
 var express = require("express");
-var path = require("path");
-
+var fs = require("fs");
 var app = express();
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "home.html"));
-});
+var server = http.createServer(handleRequest);
 
-app.get("/survey", function(req, res) {
-  res.sendFile(path.join(__dirname, "survey.html"));
-});
+function handleRequest(req, res) {
 
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
-});
+  switch (path) {
+
+    case "/survey":
+      return fs.readFile(__dirname + "/survey.html", function (err, data) {
+        if (err) throw err;
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(data);
+      });
+    default:
+      return fs.readFile(__dirname + "/index.html", function (err, data) {
+        if (err) throw err;
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(data);
+      });
+  }
+}
+  server.listen(PORT, function() {
+    console.log("Server is listening on PORT: " + PORT);
+  });
