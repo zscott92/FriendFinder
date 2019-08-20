@@ -4,10 +4,10 @@ module.exports = function (app) {
 
     app.get("*", function (req, res) {
         // res.send("Welcome to the Star Wars Page!")
-        res.sendFile(path.join(__dirname, "/app/public/home.html"));
+        res.sendFile(path.join(__dirname, "./public/home.html"));
     });
   
     app.get("/survey", function (req, res) {
-        res.sendFile(path.join(_dirname, "app/public/survey.html"));
+        res.sendFile(path.join(_dirname, "./public/survey.html"));
     });
 };

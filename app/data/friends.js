@@ -30,6 +30,14 @@ $(document).ready(function () {
         });
     }
 });
+let nameDiv = $("#name");
+let photoDiv = $("photoImageInput");
+let name = nameDiv.html;
+let photo = photoDiv.html;
+
+dropdownArray.push(name);
+dropdownArray.push(photo);
+
 $("#submit").click(function () {
     console.log(dropdownArray);
         dropdownArray.forEach(function () {
