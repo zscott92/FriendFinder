@@ -1,24 +1,13 @@
+var friendsData = require("../data/friends.js");
 
-var server = http.createServer(handleRequest);
+module.exports = function (app) {
 
+  app.get("/api/friends", function (req, res) {
+    res.json(friendsData);
+  });
+}
 
-var app = express();
-var PORT = 3000;
-
-app.get("/api/friends", function (req, res) {
-    res("api/friends");
+app.post("/api/friends", function (req, res) {
+  friendsData.push(req.body);
 });
-  
-app.post("/api/friends", function(req, res) {
-    var newFriend = req.body;
-  
-    console.log(newFriend);
-  
-    characters.push(newFriend);
-  
-    res.json(newFriend);
-  });
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
