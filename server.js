@@ -1,28 +1,35 @@
+
 var express = require("express");
-var fs = require("fs");
+var path = require("path");
+
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
-var server = http.createServer(handleRequest);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-function handleRequest(req, res) {
-
-  switch (path) {
-
-    case "/survey":
-      return fs.readFile(__dirname + "/survey.html", function (err, data) {
-        if (err) throw err;
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(data);
-      });
-    default:
-      return fs.readFile(__dirname + "/index.html", function (err, data) {
-        if (err) throw err;
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(data);
-      });
-  }
-}
-  server.listen(PORT, function() {
-    console.log("Server is listening on PORT: " + PORT);
+  app.get("/", function (req, res) {
+    // res.send("Welcome to the Star Wars Page!")
+    res.sendFile(path.join(__dirname, "/app/public/home.html"));
   });
+
+  app.get("/friends.js", function (req, res) {
+    return res.json(newPerson);
+  });
+
+  
+  app.post("/api/friends", function (req, res) {
+    var newPerson = req.body;
+  
+    console.log(newPerson);
+  
+    // We then add the json the user sent to the character array
+    characters.push(newPerson);
+  
+    // We then display the JSON to the users
+    res.json(newPerson);
+  });
+
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+});

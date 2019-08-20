@@ -33,14 +33,7 @@ $(document).ready(function () {
 $("#submit").click(function () {
     console.log(dropdownArray);
         dropdownArray.forEach(function () {
-            var newPerson = JSON.parse(dropdownArray);
+            var newPerson = express.Person([dropdownArray]);
             console.log(newPerson);
         });
-        const fs = require("fs");
-        fs.appendFile("./friend.js", dropdownArray, function (err) {
-            if (err) {
-              return console.log(err);
-            }
-            console.log(dropdownArray);
-      });
 });
