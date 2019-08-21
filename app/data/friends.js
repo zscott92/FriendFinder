@@ -1,47 +1,18 @@
 
-let firstDropdown = $("#dropdown1");
-let secondDropdown = $("#dropdown2");
-let thirdDropdown = $("#dropdown3");
-let fourthDropdown = $("#dropdown4");
-let fifthDropdown = $("#dropdown5");
-let sixthDropdown = $("#dropdown6");
-let seventhDropdown = $("#dropdown7");
-let eighthDropdown = $("#dropdown8");
-let ninthDropdown = $("#dropdown9");
-let tenthDropdown = $("#dropdown10");
+var dropdownArray = [{
+    name: "Zach",
+    photo: "sample.jpg",
+    dropdown1: 3,
+    dropdown2: 3,
+    dropdown3: 3,
+    dropdown4: 3,
+    dropdown5: 3,
+    dropdown6: 3,
+    dropdown7: 3,
+    dropdown8: 3,
+    dropdown9: 3,
+    dropdown10: 3,
+}
+]
 
-let dropdownArray = [firstDropdown, secondDropdown, thirdDropdown, fourthDropdown, fifthDropdown, sixthDropdown,
-    seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown];
-
-$(document).ready(function () {
-    for (let i = 1; i <= dropdownArray.length; i++) {
-        var selectedDrop = ("dropdown") + i;
-        const selectedButton = ("dropdownMenuButton") + i;
-    
-        $("#" + selectedDrop + " a").click(function (e) {
-            e.preventDefault(); // cancel the link behaviour
-            var selText = $(this).html();
-            var selectedValue = $("#" + selectedButton).text(selText);
-            var value = selectedValue.html();
-            value = parseInt(value.substring(0, 1));
-            dropdownArray[i - 1] = value;
-            console.log(value);
-            console.log(dropdownArray);
-        });
-    }
-});
-let nameDiv = $("#name");
-let photoDiv = $("photoImageInput");
-let name = nameDiv.html;
-let photo = photoDiv.html;
-
-dropdownArray.push(name);
-dropdownArray.push(photo);
-
-$("#submit").click(function () {
-    console.log(dropdownArray);
-        dropdownArray.forEach(function () {
-            var newPerson = express.Person([dropdownArray]);
-            console.log(newPerson);
-        });
-});
+module.exports = dropdownArray;
