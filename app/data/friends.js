@@ -1,18 +1,35 @@
 
-var dropdownArray = [{
-    name: "Zach",
-    photo: "sample.jpg",
-    dropdown1: 3,
-    dropdown2: 3,
-    dropdown3: 3,
-    dropdown4: 3,
-    dropdown5: 3,
-    dropdown6: 3,
-    dropdown7: 3,
-    dropdown8: 3,
-    dropdown9: 3,
-    dropdown10: 3,
+{
+    var person = [
+        {
+            "name": "Zach",
+            "photo": "sample.jpg",
+            "firstDropdown": 1,
+            "secondDropdown": 2,
+            "thirdDropdown": 3,
+            "fourthDropdown": 4,
+            "fifthDropdown": 2,
+            "sixthDropdown": 1,
+            "seventhDropdown": 4,
+            "eighthDropdown": 4,
+            "ninthDropdown": 3,
+            "tenthDropdown": 2,
+        },
+        {
+            "name": "Bill",
+            "photo": "sample.jpg",
+            "firstDropdown": 4,
+            "secondDropdown": 3,
+            "thirdDropdown": 1,
+            "fourthDropdown": 5,
+            "fifthDropdown": 3,
+            "sixthDropdown": 4,
+            "seventhDropdown": 4,
+            "eighthDropdown": 4,
+            "ninthDropdown": 5,
+            "tenthDropdown": 2,
+        }
+    ]
 }
-]
 
-module.exports = dropdownArray;
+module.exports = person;
