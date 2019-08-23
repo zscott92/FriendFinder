@@ -16,6 +16,7 @@
             <h1>Survey Questions</h1>
         </header>
         <h2>About You</h2>
+        <form>
         <label for="name">Name (Required)</label>
         <input class="form-control" type="text" id="name">
         <label for="photoImageInput">Photo Image (Required)</label>
@@ -170,10 +171,33 @@
                 <a class="dropdown-item" href="#" id="5">5 (strongly agree)</a>
             </div>
         </div>
-        <a href='/api/friends'>
-            <button type="submit" class="btn btn-primary" id="submit">Submit Answers</button>
-        </a>
+    </form>
+        <button type="submit" class="btn btn-primary" id="submit">Submit Answers</button>
     </div>
+
+    <div id="bffModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">BFF 4 LYFE</h1>
+                </div>
+                <div class="modal-body">
+                    <h2 id="bff"></h2>
+                    <img id="bffPhoto" src="#">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href='/api/friends'></a>
+        <span>
+            |
+        </span>
+        <a href='https://github.com/zscott92/FriendFinder'></a>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -184,68 +208,92 @@
 
 </html>
 <script type="text/javascript">
-    let firstDropdown = $("#dropdown1");
-    let secondDropdown = $("#dropdown2");
-    let thirdDropdown = $("#dropdown3");
-    let fourthDropdown = $("#dropdown4");
-    let fifthDropdown = $("#dropdown5");
-    let sixthDropdown = $("#dropdown6");
-    let seventhDropdown = $("#dropdown7");
-    let eighthDropdown = $("#dropdown8");
-    let ninthDropdown = $("#dropdown9");
-    let tenthDropdown = $("#dropdown10");
-    var nameDiv = $("#name");
-    var photoDiv = $("photoImageInput");
+        let firstDropdown = $("#dropdown1");
+        let secondDropdown = $("#dropdown2");
+        let thirdDropdown = $("#dropdown3");
+        let fourthDropdown = $("#dropdown4");
+        let fifthDropdown = $("#dropdown5");
+        let sixthDropdown = $("#dropdown6");
+        let seventhDropdown = $("#dropdown7");
+        let eighthDropdown = $("#dropdown8");
+        let ninthDropdown = $("#dropdown9");
+        let tenthDropdown = $("#dropdown10");
+        var nameDiv = $("#name");
+        var photoDiv = $("#photoImageInput");
 
-    let dropdownArray = [firstDropdown, secondDropdown, thirdDropdown, fourthDropdown, fifthDropdown, sixthDropdown,
-        seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown, nameDiv, photoDiv];
+        let dropdownArray = [nameDiv, photoDiv, firstDropdown, secondDropdown, thirdDropdown, fourthDropdown, fifthDropdown, sixthDropdown,
+            seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown];
 
-    $(document).ready(function () {
-        nameDiv.on('keypress', function (e) {
-            if (e.which === 13) {
-                $(this).attr("disabled", "disabled");
-                $(this).removeAttr("disabled");
-                let name = nameDiv.html();
-                dropdownArray[10] = name;
-            }
+        $(document).ready (function () {        
+            nameDiv.on('keypress', function (e) {
+            $(this).attr("enabled", "disabled");
+            $(this).removeAttr("disabled");
+            let name = nameDiv.val();
+            dropdownArray[0] = name;
+            console.log(name);
         });
 
         photoDiv.on('keypress', function (e) {
-            if (e.which === 13) {
-                $(this).attr("disabled", "disabled");
-                $(this).removeAttr("disabled");
-                let photo = photoDiv.html();
-                dropdownArray[11] = photo;
-            }
+
+            $(this).attr("enabled", "disabled");
+            $(this).removeAttr("disabled");
+            let photo = photoDiv.val();
+            dropdownArray[1] = photo;
+            console.log(photo);
+
         });
-        
+        let newFriend = "";
         for (let i = 1; i <= dropdownArray.length; i++) {
-            var selectedDrop = ("dropdown") + i;
+            let selectedDrop = ("dropdown") + i;
             const selectedButton = ("dropdownMenuButton") + i;
             $("#" + selectedDrop + " a").click(function (e) {
                 e.preventDefault(); // cancel the link behaviour
-                var selText = $(this).html();
-                var selectedValue = $("#" + selectedButton).text(selText);
-                var value = selectedValue.html();
-                value = parseInt(value.substring(0, 1));
-                dropdownArray[i - 1] = value;
-                console.log(value);
+                let selText = $(this).html();
+                let selectedValue = $("#" + selectedButton).text(selText);
+                let extValue = selectedValue.html();
+                extValue = extValue.substring(0, 1);
+                dropdownArray[i + 1] = extValue;
+                console.log(extValue);
                 console.log(dropdownArray);
+                newFriend = {
+                name: dropdownArray[0].value,
+                photo: dropdownArray[1].value,
+                questions: [
+                    dropdownArray[2].value,
+                    dropdownArray[3].value,
+                    dropdownArray[4].value,
+                    dropdownArray[5].value,
+                    dropdownArray[6].value,
+                    dropdownArray[7].value,
+                    dropdownArray[8].value,
+                    dropdownArray[9].value,
+                    dropdownArray[10].value,
+                    dropdownArray[11].value
+                ]
+            };
             });
         }
-        console.log(dropdownArray);
 
-        $("#submit").click(function () {
-            $.post("/api/friends", dropdownArray, function (req, res) {
-                var jsonResp = JSON.parse(res);
-                var companiesArray = jsonResp.person;
-                $.each(dropdownArray, function (index, valueObj) {
-                    dropdownArray.append;
-                });
+        $("#submit").click(function (e) {
+            e.preventDefault();
 
-                // Clear the form when submitting
+            $.post("/api/friends", newFriend, function (data) {
+                console.log(newFriend);
+                if (data) {
+                    $("#bff").text(data.name);
+                    $("#bffPhoto").attr("src", data.photo);
+                    $("#bffView").modal("toggle");
+                }
+
+                else {
+                    alert("Sorry you are on the wait list");
+                }
+
+
             });
 
         });
     });
+
+
 </script>

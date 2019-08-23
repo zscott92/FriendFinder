@@ -1,35 +1,10 @@
 
-{
-    var person = [
-        {
-            "name": "Zach",
-            "photo": "sample.jpg",
-            "firstDropdown": 1,
-            "secondDropdown": 2,
-            "thirdDropdown": 3,
-            "fourthDropdown": 4,
-            "fifthDropdown": 2,
-            "sixthDropdown": 1,
-            "seventhDropdown": 4,
-            "eighthDropdown": 4,
-            "ninthDropdown": 3,
-            "tenthDropdown": 2,
-        },
-        {
-            "name": "Bill",
-            "photo": "sample.jpg",
-            "firstDropdown": 4,
-            "secondDropdown": 3,
-            "thirdDropdown": 1,
-            "fourthDropdown": 5,
-            "fifthDropdown": 3,
-            "sixthDropdown": 4,
-            "seventhDropdown": 4,
-            "eighthDropdown": 4,
-            "ninthDropdown": 5,
-            "tenthDropdown": 2,
-        }
-    ]
-}
+var friends = [
+	{
+		name: "Zach",
+		photo: "sample.jpg",
+		scores: [5, 1, 2, 3, 1, 2, 5, 1, 1, 1]
+	}]
 
-module.exports = person;
+
+module.exports = friends;
