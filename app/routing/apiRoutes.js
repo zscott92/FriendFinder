@@ -7,7 +7,7 @@ module.exports = function (app) {
   });
 
   app.post("/api/friends", function (req, res) {
-    console.log(req.body.questions);
+    console.log(req.body);
 
     let person = req.body;
     let closestMatch = 0;
