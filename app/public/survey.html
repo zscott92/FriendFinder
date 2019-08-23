@@ -225,24 +225,24 @@
             seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown];
 
         $(document).ready (function () {        
-            nameDiv.on('keypress', function (e) {
+            nameDiv.on('keydown', function (e) {
             $(this).attr("enabled", "disabled");
-            $(this).removeAttr("disabled");
+            $(this).removeAttr("enabled");
             let name = nameDiv.val();
             dropdownArray[0] = name;
             console.log(name);
         });
 
-        photoDiv.on('keypress', function (e) {
+        photoDiv.on('keydown', function (e) {
 
             $(this).attr("enabled", "disabled");
-            $(this).removeAttr("disabled");
+            $(this).removeAttr("enabled");
             let photo = photoDiv.val();
             dropdownArray[1] = photo;
             console.log(photo);
 
         });
-        let newFriend = "";
+        let person = "";
         for (let i = 1; i <= dropdownArray.length; i++) {
             let selectedDrop = ("dropdown") + i;
             const selectedButton = ("dropdownMenuButton") + i;
@@ -255,30 +255,23 @@
                 dropdownArray[i + 1] = extValue;
                 console.log(extValue);
                 console.log(dropdownArray);
-                newFriend = {
-                name: dropdownArray[0].value,
-                photo: dropdownArray[1].value,
-                questions: [
-                    dropdownArray[2].value,
-                    dropdownArray[3].value,
-                    dropdownArray[4].value,
-                    dropdownArray[5].value,
-                    dropdownArray[6].value,
-                    dropdownArray[7].value,
-                    dropdownArray[8].value,
-                    dropdownArray[9].value,
-                    dropdownArray[10].value,
-                    dropdownArray[11].value
-                ]
-            };
+                $(".dropdown-menu").text(e.result);
             });
         }
 
         $("#submit").click(function (e) {
             e.preventDefault();
 
-            $.post("/api/friends", newFriend, function (data) {
-                console.log(newFriend);
+            let person = {
+                name: nameDiv.val(),
+                photo: photoDiv.val(),
+                questions : [firstDropdown.val(), secondDropdown.val(), thirdDropdown.val(), fourthDropdown.val(), fifthDropdown.val(), sixthDropdown.val(),
+            seventhDropdown.val(), eighthDropdown.val(), ninthDropdown.val(), tenthDropdown.val()]
+            };
+
+            console.log(person);
+
+            $.post("/api/friends", person, function (data) {
                 if (data) {
                     $("#bff").text(data.name);
                     $("#bffPhoto").attr("src", data.photo);
@@ -286,7 +279,7 @@
                 }
 
                 else {
-                    alert("Sorry you are on the wait list");
+                    alert("Sorry matching not available");
                 }
 
 

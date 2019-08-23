@@ -7,29 +7,25 @@ module.exports = function (app) {
   });
 
   app.post("/api/friends", function (req, res) {
-    console.log(req.body.scores);
+    console.log(req.body.questions);
 
     let person = req.body;
     let closestMatch = 0;
 
     for (let i = 0; i < friends.length; i++) {
-      let sum = 0;
-      for (let y = 0; y < friends[i].scores.length; y++) {
-        let variance = Math.abs(parseInt(person.scores[y]) - friends[i].scores[y]);
-        sum += variance;
+      let sumVariance = 0;
+      for (let y = 0; y < friends[i].questions.length; y++) {
+        let variance = Math.abs(parseInt(person.scores[y]) - parseInt(friends[i].questions[y]));
+        sumVariance += variance;
       }
-      let matchScoreWithFriend = [];
-      matchScoreWithFriend[i] = sum;
-      person.attr(matchScoreWithFriend);
+      person.matchScoreWithFriend = [match[i], sumVariance];
 
-      person.matchScoreWithFriend[i] = sum;
-      console.log(person.matchScoreWithFriend[i]);
 
       if (friends[i].length == 1) {
         alert("no users in database");
       }
 
-      else if (person.matchScoreWithFriend[i + 1] < person.matchScoreWithFriend[i]) {
+      else if (person.matchScoreWithFriend.match[i + 1] < person.matchScoreWithFriend.match[i]) {
         closestMatch = friends[i + 1];
         console.log(closestMatch.name);
         console.log(closestMatch.matchScoreWithFriend);
@@ -37,9 +33,10 @@ module.exports = function (app) {
 
       else {
         closestMatch = friends[i];
+        console.log(closestMatch.name);
+        console.log(closestMatch.matchScoreWithFriend);
       }
     }
-
 
     friends.push(person);
     res.json(friends[i]);
