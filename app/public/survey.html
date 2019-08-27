@@ -10,8 +10,6 @@
     <title>Survey</title>
 </head>
 
-console.log(__dirname);
-
 <body>
     <div class="container">
         <header>
@@ -240,8 +238,8 @@ console.log(__dirname);
             });
 
         }
-    });
 
+    });
     let name = $("#nameInput").val();
     let pho = $("#photoImageInput").val();
 
@@ -279,32 +277,32 @@ console.log(__dirname);
                 let matchScore = [];
                 let bestFriendName = "";
                 let bestFriendPhoto = "";
+                let bestMatchIndex = 0;
 
 
                 for (let i = 0; i < friendsData.length; i++) {
-                    for (let y = 0; y < friendsData[0].length; y++) {
+                    for (let y = 0; y < friendsData.questions; y++) {
                         let variance = Math.abs(newFriend.questions[y] - friendsData[i].questions[y]);
                         matchScore[i] += variance;
                     }
-                    y = 0;
                     if (matchScore[i] <= bestMatchScore) {
                         bestMatchScore = matchScore[i];
-                        bestFriendName = friendsData[i].name;
-                        bestFriendPhoto = friendsData[i].photo;
+                        bestMatchIndex = i;
                     }
                 }
+                bestFriendName = friendsData[bestMatchIndex].name;
+                bestFriendPhoto = friendsData[bestMatchIndex].photo;
                 newFriend["bffName"] = bestFriendName;
                 newFriend["bffPhoto"] = bestFriendPhoto;
                 console.log(newFriend);
                 friendsData.push(newFriend);
             });
 
-
-        $.post("/api/friends", friendsArray, function (data) {
+        $.post("/api/friends", friends, function (data) {
 
             if (data) {
-                $("#bfName").text(data.bestMatchName);
-                $("#bfPhoto").attr("src", data.bestMatchPhoto);
+                $("#bfName").text(data.bestFriendName);
+                $("#bfPhoto").attr("src", data.bestFriendPhoto);
                 $("bffModal").modal("toggle");
             }
 
