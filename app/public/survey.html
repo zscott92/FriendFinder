@@ -276,18 +276,19 @@ console.log(__dirname);
                 console.log(newFriend);
 
                 let bestMatchScore = 0;
-                let matchScore = 0;
+                let matchScore = [];
                 let bestFriendName = "";
                 let bestFriendPhoto = "";
 
 
                 for (let i = 0; i < friendsData.length; i++) {
-                    for (let y = 0; y < friendsData[i].length; y++) {
+                    for (let y = 0; y < friendsData[0].length; y++) {
                         let variance = Math.abs(newFriend.questions[y] - friendsData[i].questions[y]);
-                        matchScore += variance;
+                        matchScore[i] += variance;
                     }
-                    if (matchScore <= bestMatchScore) {
-                        matchScore = bestMatchScore;
+                    y = 0;
+                    if (matchScore[i] <= bestMatchScore) {
+                        bestMatchScore = matchScore[i];
                         bestFriendName = friendsData[i].name;
                         bestFriendPhoto = friendsData[i].photo;
                     }
@@ -299,7 +300,7 @@ console.log(__dirname);
             });
 
 
-        $.post("/api/friends", function (data) {
+        $.post("/api/friends", friendsArray, function (data) {
 
             if (data) {
                 $("#bfName").text(data.bestMatchName);

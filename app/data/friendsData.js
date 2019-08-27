@@ -1,5 +1,5 @@
 
-var friends = [{
+var friendsArray = [{
     name: "Stro",
     photo: "sample.jpg",
     questions: [5, 1, 2, 3, 1, 2, 5, 1, 1, 1]
@@ -32,4 +32,4 @@ var friends = [{
 ];
 
 
-module.exports = friends;
+module.exports = friendsArray;
