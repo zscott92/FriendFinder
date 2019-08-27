@@ -20,7 +20,7 @@ console.log(__dirname);
         <h2>About You</h2>
         <form>
             <label for="name">Name (Required)</label>
-            <input class="form-control" type="text" id="name">
+            <input class="form-control" type="text" id="nameInput">
             <label for="photoImageInput">Photo Image (Required)</label>
             <input class="form-control" type="text" id="photoImageInput">
             <h2>Question 1</h2>
@@ -184,8 +184,8 @@ console.log(__dirname);
                     <h1 class="modal-title">BFF 4 LYFE</h1>
                 </div>
                 <div class="modal-body">
-                    <h2 id="bff"></h2>
-                    <img id="bffPhoto" src="#">
+                    <h2 id="bfName"></h2>
+                    <img id="bfPhoto" src="#">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -195,9 +195,7 @@ console.log(__dirname);
     </div>
     <footer>
         <a href='/api/friends'></a>
-        <span>
-            |
-        </span>
+        <span>|</span>
         <a href='https://github.com/zscott92/FriendFinder'></a>
     </footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -210,136 +208,115 @@ console.log(__dirname);
 
 </html>
 <script type="text/javascript">
-    let firstDropdown = $("#dropdown1").addClass("dd");
-    let secondDropdown = $("#dropdown2").addClass("dd");
-    let thirdDropdown = $("#dropdown3").addClass("dd");
-    let fourthDropdown = $("#dropdown4").addClass("dd")
-    let fifthDropdown = $("#dropdown5").addClass("dd");
-    let sixthDropdown = $("#dropdown6").addClass("dd");
-    let seventhDropdown = $("#dropdown7").addClass("dd");
-    let eighthDropdown = $("#dropdown8").addClass("dd");
-    let ninthDropdown = $("#dropdown9").addClass("dd");
-    let tenthDropdown = $("#dropdown10").addClass("dd");
-    var nameDiv = $("#name");
-    var photoDiv = $("#photoImageInput");
-    
-    var person = new Array();
+    let firstDropdown = $("#dropdown1");
+    let secondDropdown = $("#dropdown2");
+    let thirdDropdown = $("#dropdown3");
+    let fourthDropdown = $("#dropdown4");
+    let fifthDropdown = $("#dropdown5");
+    let sixthDropdown = $("#dropdown6");
+    let seventhDropdown = $("#dropdown7");
+    let eighthDropdown = $("#dropdown8");
+    let ninthDropdown = $("#dropdown9");
+    let tenthDropdown = $("#dropdown10");
+
+
+    let dropdownArray = [firstDropdown, secondDropdown, thirdDropdown, fourthDropdown, fifthDropdown, sixthDropdown,
+        seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown];
 
     $(document).ready(function () {
-
-
-
-
-        // $(".dropdown-menu a").click(function (e) {
-        //     e.preventDefault(); // cancel the link behaviour
-        //     let selText = $(this).html();
-        //     console.log(selText);
-        //     var x = $(e.relatedTarget).text();
-        //     console.log(x);
-        //     console.log(selectedValue);
-        //     let extValue = selectedValue.html();
-        //     extValue = extValue.substring(0, 1);
-        //     console.log(extValue);
-        //     console.log(dropdownArray);
-        // });
-
-        // var selectedDrop = ("dropdown") + i;
-        // var selectedButton = ("dropdownMenuButton") + i;
-        // $(".dropdown a").click(function (event) {
-        //     event.preventDefault();
-        //     let selText = $(this).html();
-        //     console.log(selText);
-        //     let selectedValue = $(".dd").html(this).attr('id', selText);
-        //     console.log(selectedValue);
-        //     // $("butttn:first-child").val($(this).text());
-
-        // });
-
-
-        let dropdownArray = [firstDropdown, secondDropdown, thirdDropdown, fourthDropdown, fifthDropdown, sixthDropdown,
-            seventhDropdown, eighthDropdown, ninthDropdown, tenthDropdown];
-
-
-        nameDiv.on('keydown', function (e) {
-            $(this).attr("enabled", "disabled");
-            $(this).removeAttr("enabled");
-        
-            person.push(nameDiv.val());
-        }
-        );
-
-
-        photoDiv.on('keydown', function (e) {
-
-            $(this).attr("enabled", "disabled");
-            $(this).removeAttr("enabled");
-            person.push(photoDiv.val());
-        });
-
-
         for (let i = 1; i <= dropdownArray.length; i++) {
-            let selectedDrop = ("dropdown") + i;
+            var selectedDrop = ("dropdown") + i;
             const selectedButton = ("dropdownMenuButton") + i;
             $("#" + selectedDrop + " a").click(function (e) {
-                e.preventDefault();
-                let selText = $(this).html();
-                let selectedValue = $("#" + selectedButton).text(selText);
-                let extValue = selectedValue.html();
-                extValue = extValue.substring(0, 1);
-                dropdownArray[i - 1] = extValue;
-                person.push({
-                    questions: [
-                        dropdownArray[0],
-                        dropdownArray[1],
-                        dropdownArray[2],
-                        dropdownArray[3],
-                        dropdownArray[4],
-                        dropdownArray[5],
-                        dropdownArray[6],
-                        dropdownArray[7],
-                        dropdownArray[8],
-                        dropdownArray[9],
-                    ]
-                }
-                );
-            })
-        }
-
-        console.log(person);
-
-
-
-        $("#submit").click(function (e) {
-            e.preventDefault();
-
-            $(".dropdown .dropdown-item").click(function (e) {
-                e.preventDefault();
-                $(".dropdown-menu").val();
-                var selectedButton = $(".dropdown-menu").attr('id');
-                console.log(selectedButton);
-                let selText = $(this).html();
-                let selectedValue = $("#" + selectedButton).text(selText);
+                let name = $("#nameInput").val();
+                let pho = $("#photoImageInput").val();
+                e.preventDefault(); // cancel the link behaviour
+                var selText = $(this).html();
+                var selectedValue = $("#" + selectedButton).text(selText);
+                var value = selectedValue.html();
+                value = parseInt(value.substring(0, 1));
+                dropdownArray[i - 1] = value;
                 console.log(dropdownArray);
+            });
 
+        }
+    });
+
+    let name = $("#nameInput").val();
+    let pho = $("#photoImageInput").val();
+
+
+
+    $("#submit").click(function (e) {
+        e.preventDefault();
+
+        dropdownArray.push(name);
+        dropdownArray.push(pho);
+        console.log(dropdownArray);
+        $.ajax({ url: "/api/friends", method: "GET" })
+            .then(function (friendsData) {
+
+
+                let newFriend = {
+                    "name": $("#nameInput").val().trim(),
+                    "photo": $("#photoImageInput").val().trim(),
+                    "questions": [dropdownArray[0],
+                    dropdownArray[1],
+                    dropdownArray[2],
+                    dropdownArray[3],
+                    dropdownArray[4],
+                    dropdownArray[5],
+                    dropdownArray[6],
+                    dropdownArray[7],
+                    dropdownArray[8],
+                    dropdownArray[9]
+                    ]
+                };
+
+                console.log(newFriend);
+
+                let bestMatchScore = 0;
+                let matchScore = 0;
+                let bestFriendName = "";
+                let bestFriendPhoto = "";
+
+
+                for (let i = 0; i < friendsData.length; i++) {
+                    for (let y = 0; y < friendsData[i].length; y++) {
+                        let variance = Math.abs(newFriend.questions[y] - friendsData[i].questions[y]);
+                        matchScore += variance;
+                    }
+                    if (matchScore <= bestMatchScore) {
+                        matchScore = bestMatchScore;
+                        bestFriendName = friendsData[i].name;
+                        bestFriendPhoto = friendsData[i].photo;
+                    }
+                }
+                newFriend["bffName"] = bestFriendName;
+                newFriend["bffPhoto"] = bestFriendPhoto;
+                console.log(newFriend);
+                friendsData.push(newFriend);
             });
 
 
-            $.post("/api/friends", person, function (data) {
-                if (data) {
-                    $("#bff").text(data.name);
-                    $("#bffPhoto").attr("src", data.photo);
-                    $("#bffView").modal("toggle");
-                }
+        $.post("/api/friends", function (data) {
 
-                else {
-                    alert("Sorry matching not available");
-                }
+            if (data) {
+                $("#bfName").text(data.bestMatchName);
+                $("#bfPhoto").attr("src", data.bestMatchPhoto);
+                $("bffModal").modal("toggle");
+            }
 
+            else {
+                alert("Sorry new friend could not be added");
+            }
 
-            });
 
         });
+
     });
+
+
 
 
 </script>
